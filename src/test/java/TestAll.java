@@ -29,6 +29,7 @@ import java.util.concurrent.FutureTask;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class TestAll {
+    //傻傻傻
     @Autowired
     private MenuDao menuDao;
     @Autowired
@@ -72,6 +73,7 @@ public class TestAll {
     public void seAdmizn(){
         Admin a = adminService.queryOneAdmin("kang");
         System.out.println(a);
+        System.out.println("1111");
     }
     @Test
     public void semizn(){
