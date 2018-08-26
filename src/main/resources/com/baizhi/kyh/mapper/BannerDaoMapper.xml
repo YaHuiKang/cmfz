@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.kyh.dao.BannerDao">
+    <cache type="org.mybatis.caches.memcached.MemcachedCache" />
+    <!--插入-->
+    <insert id="insertBanner" parameterType="com.baizhi.kyh.enity.Banner">
+        insert into banner(id, picName, picPath, description, status, createTime, url)
+        values(#{id},#{picName},#{picPath},#{description},#{status},#{createTime},#{url})
+    </insert>
+    <!--查所有-->
+    <select id="selectAllBanner" resultType="com.baizhi.kyh.enity.Banner">
+        select id, picName, picPath, description, status, createTime, url
+        from banner
+    </select>
+    <!--删除一个-->
+    <delete id="deleteOneBanner" parameterType="String">
+        delete from banner where id=#{id}
+    </delete>
+    <!--更新-->
+    <update id="updateBanner" parameterType="com.baizhi.kyh.enity.Banner">
+        update banner set picName=#{picName},description=#{description},status=#{status},url=#{url}
+        where id=#{id}
+    </update>
+    <!--查所有行-->
+    <select id="countRows" resultType="Integer">
+        select count(id) from banner
+    </select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.kyh.dao.AlbumDao">
+    <!--<cache type="org.mybatis.caches.memcached.MemcachedCache" />-->
+    <resultMap id="allAlbum" type="com.baizhi.kyh.enity.Album">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <collection property="children" ofType="com.baizhi.kyh.enity.Chapter">
+            <id property="id" column="chpterId"/>
+            <result column="title2" property="title"/>
+            <result column="url" property="url"/>
+            <result column="size" property="size"/>
+            <result column="length" property="length"/>
+        </collection>
+    </resultMap>
+    <!--添加-->
+    <insert id="insertAlbum" parameterType="com.baizhi.kyh.enity.Album">
+        insert into album(id, title, score, brodercast, author, description, count, coverImg, status)
+        values (#{id}, #{title}, #{score}, #{brodercast}, #{author}, #{description}, #{count}, #{coverImg}, #{status})
+    </insert>
+    <!--查所有-->
+    <select id="selectAllAlbum" resultType="com.baizhi.kyh.enity.Album">
+        select id,title from album
+    </select>
+    <!--查所有专辑以及专辑下的所有章节-->
+    <select id="selectAlbumAndCha" resultMap="allAlbum">
+    select a.id, a.title,c.id chpterId,c.title title2,url,size,length
+    from album a
+    left join chapter c
+    on a.id=c.albumId
+
+    </select>
+    <!--查一个-->
+    <select id="selectAlbumById" resultType="com.baizhi.kyh.enity.Album" parameterType="String">
+        select id, title,score,brodercast,author,description,publishTime,
+        count,coverImg,status from album
+        where id=#{id}
+    </select>
+</mapper>

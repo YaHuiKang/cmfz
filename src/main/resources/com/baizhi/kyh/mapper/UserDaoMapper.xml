@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.kyh.dao.UserDao">
+    <cache type="org.mybatis.caches.memcached.MemcachedCache" />
+    <insert id="insertUser" parameterType="com.baizhi.kyh.enity.User">
+        insert into user(id, photo, dharmaName, name, sex, province, city, sign, phoneNum, password, salt, createTime, status, username)
+        values(#{id}, #{photo}, #{dharmaName}, #{name}, #{sex}, #{province}, #{city}, #{sign}, #{phoneNum}, #{password}, #{salt}, #{createTime}, #{status}, #{username})
+    </insert>
+    <!--查所有-->
+    <select id="selectAllUser" resultType="com.baizhi.kyh.enity.User">
+        select dharmaName,name,province,city,createTime from user
+    </select>
+
+    <!--根据性别为男的查-->
+    <select id="seletUserBySex" parameterType="Integer" resultType="com.baizhi.kyh.dto.UserEchartsDto">
+        select province name,count(*) value
+        from user
+        where sex=#{sex}
+        group by province
+    </select>
+
+    <select id="countUserByTime" resultType="Integer" parameterType="Date">
+        select count(*) from user
+        where createTime between #{time} and sysdate()
+    </select>
+</mapper>
